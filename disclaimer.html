@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer - Lost & Found Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="disclaimer-container">
+        <div class="disclaimer-header">
+            <span class="warning-icon">⚠️</span>
+            <h1>IMPORTANT DISCLAIMER</h1>
+        </div>
+        
+        <div class="disclaimer-point">
+            <h4>Public Platform Warning</h4>
+            <p>Ebitech <strong>cannot guarantee</strong> the authenticity of any lost/found items posted. All interactions are between users only.</p>
+        </div>
+        
+        <div class="disclaimer-point">
+            <h4>No Collection Service</h4>
+            <p>Ebitech is <strong>not responsible</strong> for collecting or delivering any items. Arrangements must be made directly between users.</p>
+        </div>
+        
+        <div class="disclaimer-point">
+            <h4>Safety First</h4>
+            <ul>
+                <li>Meet in public places during daylight hours</li>
+                <li>Bring someone with you</li>
+                <li>Never share financial information</li>
+                <li>Beware of scams asking for money</li>
+            </ul>
+        </div>
+        
+        <div class="disclaimer-point">
+            <h4>Be Honest</h4>
+            <p>Please only post genuine lost/found items. Fraudulent posts may be reported to authorities.</p>
+        </div>
+        
+        <div class="form-check">
+            <input type="checkbox" id="acceptCheck" class="form-check-input">
+            <label for="acceptCheck">I understand and accept these terms</label>
+        </div>
+        
+        <div class="text-center">
+            <button id="continueBtn" class="btn btn-success" disabled>Continue to App</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('acceptCheck').addEventListener('change', function() {
+            document.getElementById('continueBtn').disabled = !this.checked;
+        });
+        
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            localStorage.setItem('disclaimerAccepted', 'true');
+            window.location.href = 'index.html';
+        });
+        
+        if (localStorage.getItem('disclaimerAccepted')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

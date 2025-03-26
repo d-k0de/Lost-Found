@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found Tracker</title>
+    <!-- Add Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">🔍 Lost & Found Tracker <span>by ebitech</span></a>
+            <div class="navbar-right">
+                <button class="navbar-toggler" type="button" aria-label="Toggle navigation" id="navbar-toggle">
+                    <svg class="menu-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" fill="white"/>
+                    </svg>
+                </button>
+                <div class="navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="report-modal-toggle">Report Item</a>
+                        </li>
+                        <!-- Map View Link -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="map-view-toggle">Map View</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="tabs" id="statusTabs">
+            <a class="tab-link active" data-status="all" href="#">All Items</a>
+            <a class="tab-link" data-status="lost" href="#">Lost Items</a>
+            <a class="tab-link" data-status="found" href="#">Found Items</a>
+        </div>
+
+        <div class="search-container">
+            <div class="input-group">
+                <input type="text" class="form-input" id="keyword-search" placeholder="Search by keyword...">
+                <button class="btn btn-primary" id="keyword-search-btn">Search</button>
+            </div>
+            <div id="search-feedback" class="feedback item-count-feedback"></div>
+        </div>
+
+        <div id="items-list" class="items-grid">Loading items...</div>
+
+        <!-- Map Container -->
+        <section class="map-section" id="map-section">
+            <h3>Item Locations</h3>
+            <div id="map"></div>
+            <!-- Address List -->
+            <div id="address-list"></div>
+        </section>
+    </main>
+
+    <!-- Report Item Modal -->
+    <div class="modal" id="reportModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Report an Item</h5>
+                    <button type="button" class="modal-close" id="report-modal-close" aria-label="Close">×</button>
+                </div>
+                <form id="report-form" class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label">Item Status</label>
+                            <select class="form-select" id="item-status" name="status" required>
+                                <option value="">Select Status</option>
+                                <option value="lost">Lost</option>
+                                <option value="found">Found</option>
+                            </select>
+                            <div class="invalid-feedback">Please select an item status</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-type" class="form-label">Item Type</label>
+                            <select class="form-select" id="item-type" name="item_type" required>
+                                <option value="">Select Type</option>
+                                <option value="wallet">Wallet</option>
+                                <option value="phone">Phone</option>
+                                <option value="keys">Keys</option>
+                                <option value="jewelry">Jewelry</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="invalid-feedback">Please select an item type</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-title" class="form-label">Item Title* (Format: "Title - dd/mm/yyyy")</label>
+                            <input type="text" class="form-input" id="item-title" name="title" 
+                                   placeholder="e.g., Lost Wallet - 25/03/2025" required
+                                   pattern=".+\s-\s\d{2}/\d{2}/\d{4}">
+                            <div class="invalid-feedback">Please use the format: "Title - dd/mm/yyyy"</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-date" class="form-label">Date of Incident*</label>
+                            <input type="date" class="form-input" id="report-date" name="report_date" required>
+                            <div class="invalid-feedback">Please select a date</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description*</label>
+                            <textarea class="form-input" id="description" name="description" rows="3" required></textarea>
+                            <div class="invalid-feedback">Please provide a description</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="location-desc" class="form-label">Location*</label>
+                            <input type="text" class="form-input" id="location-desc" name="location_desc" required>
+                            <div class="invalid-feedback">Please provide a location</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-info" class="form-label">Contact Info*</label>
+                            <input type="text" class="form-input" id="contact-info" name="contact_info" required>
+                            <div class="invalid-feedback">Please provide contact information</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="image-link" class="form-label">Image URL (Optional)</label>
+                            <input type="url" class="form-input" id="image-link" name="image_link">
+                            <div class="invalid-feedback">Please enter a valid URL (optional)</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="report-modal-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="submit-btn">
+                            <span class="submit-text">Submit Report</span>
+                            <span class="spinner" role="status"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Button -->
+    <button class="report-btn" id="report-btn">+ Report Item</button>
+
+    <!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 Lost & Found Tracker by ebitech. All rights reserved.</p>
+        <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="[Your Instagram Link]" target="_blank">Instagram</a></li>
+            <li><a href="[Your LinkedIn Link]" target="_blank">LinkedIn</a></li>
+        </ul>
+    </div>
+</footer>
+
+    <script>
+        if (!localStorage.getItem('disclaimerAccepted')) {
+            window.location.href = 'disclaimer.html';
+        }
+
+        // Scroll to map section when "Map View" is clicked
+        document.getElementById('map-view-toggle').addEventListener('click', (e) => {
+            e.preventDefault();
+            const mapSection = document.getElementById('map-section');
+            mapSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+    <!-- Add Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="./dist/bundle.js"></script>
+    <script type="module" src="./eai.js"></script>
+    <script src="./contacts.js"></script>
+</body>
+</html>

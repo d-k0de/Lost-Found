@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "vite build --emptyOutDir",
+    "dev": "vite serve"
+  },
+  "dependencies": {
+    "@firebase/firestore": "^4.7.10",
+    "date-fns": "^4.1.0",
+    "firebase": "^11.5.0"
+  },
+  "devDependencies": {
+    "vite": "^6.2.3"
+  }
+}
