@@ -1,6 +1,6 @@
 # Lost & Found Tracker
 
-![Lost & Found Tracker Banner](banner.png)  
+![Lost & Found Tracker Banner](bannerimage.png)  
 *A platform to help you recover lost items, reunite found items with their owners, and access emergency services in Rwanda.*
 
 ## 📖 Project Overview
