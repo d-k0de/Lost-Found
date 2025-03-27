@@ -1,3 +1,4 @@
+// eai.js
 const emergencyNumbers = {
     police: "112",
     ambulance: "912",
@@ -17,54 +18,6 @@ const emergencyContacts = {
 };
 
 const GEOAPIFY_API_KEY = import.meta.env.VITE_GEOAPIFY_API_KEY;
-
-const injectEmergencyAi = () => {
-    const navbarNav = document.querySelector(".navbar-nav");
-    if (navbarNav) {
-        const navItem = document.createElement("li");
-        navItem.classList.add("nav-item");
-        navItem.innerHTML = `<a class="nav-link" href="#" id="emergency-ai-toggle">Emergency AI</a>`;
-        navbarNav.appendChild(navItem);
-    }
-
-    const modalContainer = document.createElement("div");
-    modalContainer.innerHTML = `
-        <div class="modal" id="emergencyAiModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header emergency-header">
-                        <h5 class="modal-title">Emergency AI</h5>
-                        <button type="button" class="modal-close" id="emergency-ai-close">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="chat-body" id="emergency-ai-messages">
-                            <div class="message bot-message">
-                                Hello! I can help you find emergency numbers or addresses in Rwanda. Ask me something like "police number" or "hospital in Kigali".
-                            </div>
-                        </div>
-                        <div class="chat-footer">
-                            <div class="input-group">
-                                <input type="text" class="form-input" id="emergency-ai-input" placeholder="Type your query...">
-                                <button type="button" class="btn btn-danger" id="emergency-ai-submit">Send</button>
-                            </div>
-                            <div id="emergency-ai-input-error" class="invalid-feedback"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modalContainer);
-
-    const toggle = document.getElementById("emergency-ai-toggle");
-    const modal = document.getElementById("emergencyAiModal");
-    const close = document.getElementById("emergency-ai-close");
-    toggle.addEventListener("click", (e) => {
-        e.preventDefault();
-        modal.classList.add("show");
-    });
-    close.addEventListener("click", () => modal.classList.remove("show"));
-};
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
     const R = 6371;
@@ -171,12 +124,23 @@ async function handleEmergencyQuery(query) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    injectEmergencyAi();
-    const emergencyAiModal = document.getElementById("emergencyAiModal");
-    const emergencyAiInput = document.getElementById("emergency-ai-input");
-    const emergencyAiSubmit = document.getElementById("emergency-ai-submit");
-    const emergencyAiInputError = document.getElementById("emergency-ai-input-error");
+// Set up event listeners for the Emergency AI modal
+const emergencyAiModal = document.getElementById("emergencyAiModal");
+const emergencyAiInput = document.getElementById("emergency-ai-input");
+const emergencyAiSubmit = document.getElementById("emergency-ai-submit");
+const emergencyAiInputError = document.getElementById("emergency-ai-input-error");
+const emergencyAiToggle = document.getElementById("emergency-ai-toggle");
+const emergencyAiClose = document.getElementById("emergency-ai-close");
+
+if (emergencyAiModal && emergencyAiInput && emergencyAiSubmit && emergencyAiInputError && emergencyAiToggle && emergencyAiClose) {
+    emergencyAiToggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        emergencyAiModal.classList.add("show");
+    });
+
+    emergencyAiClose.addEventListener("click", () => {
+        emergencyAiModal.classList.remove("show");
+    });
 
     emergencyAiModal.addEventListener('click', (e) => {
         if (e.target === emergencyAiModal) emergencyAiModal.classList.remove("show");
@@ -203,4 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
     emergencyAiInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") emergencyAiSubmit.click();
     });
-});
+} else {
+    console.log("Emergency AI elements not found"); // Debug log
+}

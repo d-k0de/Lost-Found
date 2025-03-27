@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">🔍 Lost & Found Tracker <span>by ebitech</span></a>
+            <a class="navbar-brand" href="index.html">🔍 Lost & Found Tracker <span>by ebitech</span></a>
             <div class="navbar-right">
                 <button class="navbar-toggler" type="button" aria-label="Toggle navigation" id="navbar-toggle">
                     <svg class="menu-icon" viewBox="0 0 24 24" width="24" height="24">
@@ -21,14 +21,19 @@
                 <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#" id="report-modal-toggle">Report Item</a>
                         </li>
-                        <!-- Map View Link -->
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="map-view-toggle">Map View</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="emergency-ai-toggle">Emergency AI</a>
                         </li>
                     </ul>
                 </div>
@@ -139,21 +144,47 @@
         </div>
     </div>
 
+    <!-- Emergency AI Modal -->
+    <div class="modal" id="emergencyAiModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header emergency-header">
+                    <h5 class="modal-title">Emergency AI</h5>
+                    <button type="button" class="modal-close" id="emergency-ai-close">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="chat-body" id="emergency-ai-messages">
+                        <div class="message bot-message">
+                            Hello! I can help you find emergency numbers or addresses in Rwanda. Ask me something like "police number" or "hospital in Kigali".
+                        </div>
+                    </div>
+                    <div class="chat-footer">
+                        <div class="input-group">
+                            <input type="text" class="form-input" id="emergency-ai-input" placeholder="Type your query...">
+                            <button type="button" class="btn btn-danger" id="emergency-ai-submit">Send</button>
+                        </div>
+                        <div id="emergency-ai-input-error" class="invalid-feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Report Button -->
     <button class="report-btn" id="report-btn">+ Report Item</button>
 
     <!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <p>&copy; 2025 Lost & Found Tracker by ebitech. All rights reserved.</p>
-        <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="[Your Instagram Link]" target="_blank">Instagram</a></li>
-            <li><a href="[Your LinkedIn Link]" target="_blank">LinkedIn</a></li>
-        </ul>
-    </div>
-</footer>
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Lost & Found Tracker by ebitech. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="[Your Instagram Link]" target="_blank">Instagram</a></li>
+                <li><a href="[Your LinkedIn Link]" target="_blank">LinkedIn</a></li>
+            </ul>
+        </div>
+    </footer>
 
     <script>
         if (!localStorage.getItem('disclaimerAccepted')) {

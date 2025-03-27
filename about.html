@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
     <nav class="navbar sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">🔍 Lost & Found Tracker <span>by ebitech</span></a>
@@ -24,9 +23,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="index.html">Home</a>
                         </li>
-                        
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="emergency-ai-toggle">Emergency AI</a>
                         </li>
                     </ul>
                 </div>
@@ -34,7 +35,6 @@
         </div>
     </nav>
 
-    
     <!-- Main Content -->
     <main class="container">
         <section class="about-section">
@@ -104,6 +104,32 @@
         </section>
     </main>
 
+    <!-- Emergency AI Modal -->
+    <div class="modal" id="emergencyAiModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header emergency-header">
+                    <h5 class="modal-title">Emergency AI</h5>
+                    <button type="button" class="modal-close" id="emergency-ai-close">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="chat-body" id="emergency-ai-messages">
+                        <div class="message bot-message">
+                            Hello! I can help you find emergency numbers or addresses in Rwanda. Ask me something like "police number" or "hospital in Kigali".
+                        </div>
+                    </div>
+                    <div class="chat-footer">
+                        <div class="input-group">
+                            <input type="text" class="form-input" id="emergency-ai-input" placeholder="Type your query...">
+                            <button type="button" class="btn btn-danger" id="emergency-ai-submit">Send</button>
+                        </div>
+                        <div id="emergency-ai-input-error" class="invalid-feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -121,16 +147,6 @@
     <script>
         if (!localStorage.getItem('disclaimerAccepted')) {
             window.location.href = 'disclaimer.html';
-        }
-
-        // Scroll to map section when "Map View" is clicked, but only if map-section exists
-        const mapViewToggle = document.getElementById('map-view-toggle');
-        const mapSection = document.getElementById('map-section');
-        if (mapViewToggle && mapSection) {
-            mapViewToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                mapSection.scrollIntoView({ behavior: 'smooth' });
-            });
         }
 
         // Fallback navbar toggle functionality
