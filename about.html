@@ -24,12 +24,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="index.html">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="report-modal-toggle">Report Item</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="map-view-toggle">Map View</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About</a>
                         </li>
@@ -39,6 +34,7 @@
         </div>
     </nav>
 
+    
     <!-- Main Content -->
     <main class="container">
         <section class="about-section">
@@ -55,7 +51,6 @@
                     <li>National Diploma in Mechanical Engineering from Auchi Polytechnic, Auchi</li>
                     <li>Specialized training in UI/UX Design, Artificial Intelligence and Data analysis</li>
                     <li>3 years of professional experience in software development</li>
-                    
                 </ul>
 
                 <h3>Explore My Work</h3>
@@ -109,10 +104,10 @@
         </section>
     </main>
 
-   <!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Lost & Found Tracker by ebitech. All rights reserved.</p>
+            <p>© 2025 Lost & Found Tracker by ebitech. All rights reserved.</p>
             <ul class="footer-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -122,17 +117,32 @@
         </div>
     </footer>
 
-    <!-- Scripts (same as index.html) -->
+    <!-- Scripts -->
     <script>
         if (!localStorage.getItem('disclaimerAccepted')) {
             window.location.href = 'disclaimer.html';
         }
 
-        // Scroll to map section when "Map View" is clicked
-        document.getElementById('map-view-toggle').addEventListener('click', (e) => {
-            e.preventDefault();
-            const mapSection = document.getElementById('map-section');
-            mapSection.scrollIntoView({ behavior: 'smooth' });
+        // Scroll to map section when "Map View" is clicked, but only if map-section exists
+        const mapViewToggle = document.getElementById('map-view-toggle');
+        const mapSection = document.getElementById('map-section');
+        if (mapViewToggle && mapSection) {
+            mapViewToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                mapSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Fallback navbar toggle functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbarToggle = document.getElementById('navbar-toggle');
+            const navbarNav = document.getElementById('navbarNav');
+
+            if (navbarToggle && navbarNav) {
+                navbarToggle.addEventListener('click', () => {
+                    navbarNav.classList.toggle('show');
+                });
+            }
         });
     </script>
     <!-- Add Leaflet JS -->

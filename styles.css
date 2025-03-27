@@ -453,6 +453,7 @@ html, body {
     box-shadow: var(--card-shadow);
     cursor: pointer;
     transition: all 0.3s;
+    z-index: 1000;
 }
 
 .report-btn:hover {
