@@ -21,7 +21,8 @@ This project was developed as part of a university assignment to create a meanin
 
 ### 🎥 Demo Video
 
-Watch a demo of the Lost & Found Tracker in action: [Demo Video Link](https://www.youtube.com/watch?v=your-demo-video-link)  
+Watch a demo of the Lost & Found Tracker in action:  
+[Demo Video Link](https://www.canva.com/design/DAGjEGZZEtc/qrq_m5qKzdv_T5j89KdMmg/watch?utm_content=DAGjEGZZEtc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hab1200133f)
 
 
 ## 🛠️ Tech Stack
