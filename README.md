@@ -105,7 +105,7 @@ The Lost & Found Tracker is deployed on two web servers (Web01 and Web02) with a
 ### Prerequisites
 
 - Two web servers (e.g., Web01 and Web02) running Ubuntu with Nginx installed.
-- A load balancer (e.g., Lb01) running Ubuntu with Nginx configured for load balancing.
+- A load balancer (e.g., Lb01) running Ubuntu with haproxy configured for load balancing.
 - SSH access to all servers.
 - A domain name (e.g., `www.dk0de.tech`) pointing to the load balancer’s IP address.
 
@@ -150,7 +150,7 @@ The Lost & Found Tracker is deployed on two web servers (Web01 and Web02) with a
      ```
 
 5. **Configure the Load Balancer (Lb01)**  
-     Update the Nginx configuration on Lb01:
+     Update the haproxy configuration on Lb01:
      ```nginx
      upstream backend {
              server <web01-ip>:80;
@@ -170,10 +170,10 @@ The Lost & Found Tracker is deployed on two web servers (Web01 and Web02) with a
              }
      }
      ```
-     Test and reload Nginx:
+     Test and reload haproxy:
      ```bash
-     sudo nginx -t
-     sudo systemctl reload nginx
+     haproxy -c -f /etc/haproxy/haproxy.cfg
+     sudo service haproxy restart
      ```
 
 6. **Test the Deployment**  
